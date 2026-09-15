@@ -1,0 +1,209 @@
+{
+  "1003624": {
+    "pub_id": "1003624",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1003624",
+    "number": "AR 95-1",
+    "date": "03/22/2018",
+    "title": "FLIGHT REGULATIONS",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN5966_AR_95-1_WEB_FINAL.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "03/22/2018",
+        "seen": "2026-09-15"
+      }
+    ]
+  },
+  "64645": {
+    "pub_id": "64645",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=64645",
+    "number": "AR 95-2",
+    "date": "03/31/2016",
+    "title": "AIR TRAFFIC CONTROL, AIRFIELD/HELIPORT, AND AIRSPACE OPERATIONS",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/r95_2.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "03/31/2016",
+        "seen": "2026-09-15"
+      }
+    ]
+  },
+  "1007445": {
+    "pub_id": "1007445",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1007445",
+    "number": "AR 600-105",
+    "date": "06/05/2020",
+    "title": "AVIATION SERVICE OF RATED ARMY OFFICERS",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN17737_AR600_105_FINAL.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "06/05/2020",
+        "seen": "2026-09-15"
+      }
+    ]
+  },
+  "1020677": {
+    "pub_id": "1020677",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1020677",
+    "number": "AR 40-8",
+    "date": "02/02/2022",
+    "title": "TEMPORARY FLYING RESTRICTION DUE TO EXOGENOUS FACTORS AFFECTING AIRCREW EFFICIENCY",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN30340-AR_40-8-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "02/02/2022",
+        "seen": "2026-09-15"
+      }
+    ]
+  },
+  "1032705": {
+    "pub_id": "1032705",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1032705",
+    "number": "TC 3-04.1-4",
+    "date": "03/18/2026",
+    "title": "FUNDAMENTALS OF FLIGHT",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN46145-TC_3-04.1-4-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "03/18/2026",
+        "seen": "2026-09-15"
+      }
+    ]
+  },
+  "1030212": {
+    "pub_id": "1030212",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1030212",
+    "number": "TC 3-04.5",
+    "date": "12/12/2024",
+    "title": "INSTRUMENT FLIGHT FOR ARMY AVIATORS",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN42594-TC_3-04.5-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "12/12/2024",
+        "seen": "2026-09-15"
+      }
+    ]
+  },
+  "1024699": {
+    "pub_id": "1024699",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1024699",
+    "number": "TC 3-04.11",
+    "date": "04/14/2022",
+    "title": "COMMANDER'S AVIATION TRAINING AND STANDARDIZATION PROGRAM",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN35119-TC_3-04.11-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "04/14/2022",
+        "seen": "2026-09-15"
+      }
+    ]
+  },
+  "1026164": {
+    "pub_id": "1026164",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026164",
+    "number": "TC 3-04.12",
+    "date": "12/22/2022",
+    "title": "AVIATION MISSION PLANNING FORMS",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN37063-TC_3-04.12-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "12/22/2022",
+        "seen": "2026-09-15"
+      }
+    ]
+  },
+  "1033547": {
+    "pub_id": "1033547",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1033547",
+    "number": "TC 3-04.1-6",
+    "date": "07/30/2026",
+    "title": "AEROMEDICAL TRAINING FOR FLIGHT PERSONNEL",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN47213-TC_3-04.1-6-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-15",
+    "last_checked": "2026-09-15",
+    "last_changed": "2026-09-15",
+    "history": [
+      {
+        "date": "07/30/2026",
+        "seen": "2026-09-15"
+      }
+    ]
+  }
+}
