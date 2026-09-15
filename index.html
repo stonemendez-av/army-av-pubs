@@ -53,6 +53,18 @@
   .muted { color: #999; }
   footer { max-width: 1150px; margin: 0 auto; padding: 8px 22px 30px;
             color: #777; font-size: 12px; }
+  .notify-btn { background: #0b3d91; color: #fff; border: none; border-radius: 5px;
+            padding: 6px 10px; font-size: 12px; cursor: pointer; }
+  .notify-btn:hover { background: #092f70; }
+  .notify-form { display: none; margin-top: 8px; }
+  .notify-form.open { display: block; }
+  .notify-email { padding: 6px 8px; font-size: 13px; border: 1px solid #bbb;
+            border-radius: 5px; width: 150px; max-width: 100%; }
+  .sub-btn { background: var(--updated-bar); color: #fff; border: none; border-radius: 5px;
+            padding: 6px 10px; font-size: 12px; cursor: pointer; margin-left: 4px; }
+  .sub-btn:hover { background: #24632a; }
+  .notify-msg { font-size: 12px; margin-top: 6px; color: #2e7d32; }
+  .notify-msg.err { color: #c62828; }
 </style>
 </head>
 <body>
@@ -71,24 +83,26 @@
         <th>Unit Of Issue(s)</th>
         <th>Status</th>
         <th>Last Checked</th>
+        
       </tr>
     </thead>
     <tbody>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1003624" target="_blank" rel="noopener">AR 95-1</a> <span class="badge badge-new">NEW</span></td><td class="date">03/22/2018</td><td class="title">FLIGHT REGULATIONS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN5966_AR_95-1_WEB_FINAL.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=64645" target="_blank" rel="noopener">AR 95-2</a> <span class="badge badge-new">NEW</span></td><td class="date">03/31/2016</td><td class="title">AIR TRAFFIC CONTROL, AIRFIELD/HELIPORT, AND AIRSPACE OPERATIONS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/r95_2.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1007445" target="_blank" rel="noopener">AR 600-105</a> <span class="badge badge-new">NEW</span></td><td class="date">06/05/2020</td><td class="title">AVIATION SERVICE OF RATED ARMY OFFICERS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN17737_AR600_105_FINAL.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1020677" target="_blank" rel="noopener">AR 40-8</a> <span class="badge badge-new">NEW</span></td><td class="date">02/02/2022</td><td class="title">TEMPORARY FLYING RESTRICTION DUE TO EXOGENOUS FACTORS AFFECTING AIRCREW EFFICIENCY</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN30340-AR_40-8-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1032705" target="_blank" rel="noopener">TC 3-04.1-4</a> <span class="badge badge-new">NEW</span></td><td class="date">03/18/2026</td><td class="title">FUNDAMENTALS OF FLIGHT</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN46145-TC_3-04.1-4-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1030212" target="_blank" rel="noopener">TC 3-04.5</a> <span class="badge badge-new">NEW</span></td><td class="date">12/12/2024</td><td class="title">INSTRUMENT FLIGHT FOR ARMY AVIATORS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN42594-TC_3-04.5-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1024699" target="_blank" rel="noopener">TC 3-04.11</a> <span class="badge badge-new">NEW</span></td><td class="date">04/14/2022</td><td class="title">COMMANDER'S AVIATION TRAINING AND STANDARDIZATION PROGRAM</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN35119-TC_3-04.11-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026164" target="_blank" rel="noopener">TC 3-04.12</a> <span class="badge badge-new">NEW</span></td><td class="date">12/22/2022</td><td class="title">AVIATION MISSION PLANNING FORMS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN37063-TC_3-04.12-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1033547" target="_blank" rel="noopener">TC 3-04.1-6</a> <span class="badge badge-new">NEW</span></td><td class="date">07/30/2026</td><td class="title">AEROMEDICAL TRAINING FOR FLIGHT PERSONNEL</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN47213-TC_3-04.1-6-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1003624" target="_blank" rel="noopener">AR 95-1</a> </td><td class="date">03/22/2018</td><td class="title">FLIGHT REGULATIONS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN5966_AR_95-1_WEB_FINAL.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=64645" target="_blank" rel="noopener">AR 95-2</a> </td><td class="date">03/31/2016</td><td class="title">AIR TRAFFIC CONTROL, AIRFIELD/HELIPORT, AND AIRSPACE OPERATIONS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/r95_2.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1007445" target="_blank" rel="noopener">AR 600-105</a> </td><td class="date">06/05/2020</td><td class="title">AVIATION SERVICE OF RATED ARMY OFFICERS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN17737_AR600_105_FINAL.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1020677" target="_blank" rel="noopener">AR 40-8</a> </td><td class="date">02/02/2022</td><td class="title">TEMPORARY FLYING RESTRICTION DUE TO EXOGENOUS FACTORS AFFECTING AIRCREW EFFICIENCY</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN30340-AR_40-8-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1032705" target="_blank" rel="noopener">TC 3-04.1-4</a> </td><td class="date">03/18/2026</td><td class="title">FUNDAMENTALS OF FLIGHT</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN46145-TC_3-04.1-4-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1030212" target="_blank" rel="noopener">TC 3-04.5</a> </td><td class="date">12/12/2024</td><td class="title">INSTRUMENT FLIGHT FOR ARMY AVIATORS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN42594-TC_3-04.5-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1024699" target="_blank" rel="noopener">TC 3-04.11</a> </td><td class="date">04/14/2022</td><td class="title">COMMANDER'S AVIATION TRAINING AND STANDARDIZATION PROGRAM</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN35119-TC_3-04.11-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026164" target="_blank" rel="noopener">TC 3-04.12</a> </td><td class="date">12/22/2022</td><td class="title">AVIATION MISSION PLANNING FORMS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN37063-TC_3-04.12-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1033547" target="_blank" rel="noopener">TC 3-04.1-6</a> </td><td class="date">07/30/2026</td><td class="title">AEROMEDICAL TRAINING FOR FLIGHT PERSONNEL</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN47213-TC_3-04.1-6-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-15</td></tr>
     </tbody>
   </table>
 </main>
 <footer>
-  Generated 2026-09-15 15:12. Data pulled from armypubs.army.mil. The Number links back to
+  Generated 2026-09-15 15:36. Data pulled from armypubs.army.mil. The Number links back to
   each source page. Re-run the script to refresh; changed dates are flagged UPDATED.
 </footer>
+
 </body>
 </html>
