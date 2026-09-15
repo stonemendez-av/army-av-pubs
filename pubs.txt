@@ -1,0 +1,16 @@
+# Army Pubs to track. One per line.
+# You can paste either the full Details.aspx URL or just the PUB_ID number.
+# Lines starting with # are ignored. Blank lines are fine.
+#
+# To add a pub: open its page in Chrome (from your Pubs bookmarks folder),
+# copy the address bar URL, and paste it on its own line below.
+
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1003624
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=64645
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1007445
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1020677
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1032705
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1030212
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1024699
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026164
+https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1033547
