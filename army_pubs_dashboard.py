@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Army Pubs Dashboard
+Army Aviation Pubs Dashboard
 ===================
 
 Reads a list of Army Publishing Directorate (APD) publication detail pages,
@@ -474,7 +474,7 @@ def build_html(display, generated_at, notify_url=""):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Army Pubs Dashboard</title>
+<title>Army Aviation Pubs Dashboard</title>
 <style>
   :root {{
     --gold: #b6a269;
@@ -541,7 +541,7 @@ def build_html(display, generated_at, notify_url=""):
 </head>
 <body>
 <header>
-  <h1>Army Pubs Dashboard</h1>
+  <h1>Army Aviation Pubs Dashboard</h1>
   <div class="sub">Tracking {count} publication(s) from the Army Publishing Directorate</div>
 </header>
 <main>
@@ -588,7 +588,7 @@ def build_html(display, generated_at, notify_url=""):
 # ---------------------------------------------------------------------------
 
 def main():
-    ap = argparse.ArgumentParser(description="Army Pubs Dashboard")
+    ap = argparse.ArgumentParser(description="Army Aviation Pubs Dashboard")
     ap.add_argument("--pubs", default=DEFAULT_PUBS_FILE, help="path to the pubs list")
     ap.add_argument("--out", default=DEFAULT_OUT_FILE, help="path to the output html")
     ap.add_argument("--open", action="store_true", help="open the dashboard when done")
