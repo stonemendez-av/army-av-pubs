@@ -12,6 +12,7 @@ on:
     paths:
       - "pubs.txt"
       - "army_pubs_dashboard.py"
+      - "notify_url.txt"
       - ".github/workflows/dashboard.yml"
 
 # Let the job save the rebuilt page back into the repository.
