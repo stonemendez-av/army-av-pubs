@@ -6,7 +6,10 @@ name: Update Army Pubs Dashboard
 #  - whenever you edit pubs.txt or the script on GitHub
 on:
   schedule:
-    - cron: "0 12 * * *"   # 12:00 UTC each day (about 6 AM Colorado time)
+    # Times are UTC. GitHub ignores daylight saving, so these are set for
+    # Mountain DAYLIGHT time (summer). In winter (MST) change 11 -> 12 and 18 -> 19.
+    - cron: "0 11 * * *"   # 05:00 Mountain time
+    - cron: "0 18 * * *"   # 12:00 Mountain time
   workflow_dispatch:
   push:
     paths:
