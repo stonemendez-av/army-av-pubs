@@ -205,5 +205,28 @@
         "seen": "2026-09-15"
       }
     ]
+  },
+  "1009144": {
+    "pub_id": "1009144",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1009144",
+    "number": "ATP 3-04.1",
+    "date": "05/07/2020",
+    "title": "AVIATION TACTICAL EMPLOYMENT",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_d/pdf/web/ARN21970_ATP_3-04x1_FINAL_WEB.pdf"
+      }
+    ],
+    "first_seen": "2026-09-16",
+    "last_checked": "2026-09-16",
+    "last_changed": "2026-09-16",
+    "history": [
+      {
+        "date": "05/07/2020",
+        "seen": "2026-09-16"
+      }
+    ]
   }
 }
