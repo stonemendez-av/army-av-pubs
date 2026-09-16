@@ -53,6 +53,19 @@
   .muted { color: #999; }
   footer { max-width: 1150px; margin: 0 auto; padding: 8px 22px 30px;
             color: #777; font-size: 12px; }
+  .notify-msg { font-size: 12px; margin-top: 6px; color: #2e7d32; }
+  .notify-msg.err { color: #c62828; }
+  .subscribe-bar { background: #fff; border: 1px solid var(--line); border-radius: 6px;
+            padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .subscribe-bar .sb-label { font-size: 14px; display: block; margin-bottom: 10px; }
+  .subscribe-bar .sb-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  #sub-email { padding: 8px 10px; font-size: 14px; border: 1px solid #bbb;
+            border-radius: 5px; width: 240px; max-width: 100%; }
+  #sub-go { background: #0b3d91; color: #fff; border: none; border-radius: 5px;
+            padding: 8px 14px; font-size: 14px; cursor: pointer; }
+  #sub-go:hover { background: #092f70; }
+  .pub-check { width: 18px; height: 18px; cursor: pointer; }
+  td.notify, th.notify { text-align: center; }
 </style>
 </head>
 <body>
@@ -62,6 +75,7 @@
 </header>
 <main>
   
+  <div class="subscribe-bar"><span class="sb-label">Get email alerts when a pub changes: check the ones you want, enter your email, and subscribe.</span><div class="sb-row"><input type="email" id="sub-email" placeholder="you@example.com" autocomplete="email"><button id="sub-go">Subscribe to checked</button></div><div id="sub-msg" class="notify-msg"></div></div>
   <table>
     <thead>
       <tr>
@@ -71,24 +85,77 @@
         <th>Unit Of Issue(s)</th>
         <th>Status</th>
         <th>Last Checked</th>
+        <th class="notify">Alert<br><input type="checkbox" id="check-all" aria-label="Select all pubs"></th>
       </tr>
     </thead>
     <tbody>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1003624" target="_blank" rel="noopener">AR 95-1</a> </td><td class="date">03/22/2018</td><td class="title">FLIGHT REGULATIONS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN5966_AR_95-1_WEB_FINAL.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=64645" target="_blank" rel="noopener">AR 95-2</a> </td><td class="date">03/31/2016</td><td class="title">AIR TRAFFIC CONTROL, AIRFIELD/HELIPORT, AND AIRSPACE OPERATIONS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/r95_2.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1007445" target="_blank" rel="noopener">AR 600-105</a> </td><td class="date">06/05/2020</td><td class="title">AVIATION SERVICE OF RATED ARMY OFFICERS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN17737_AR600_105_FINAL.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1020677" target="_blank" rel="noopener">AR 40-8</a> </td><td class="date">02/02/2022</td><td class="title">TEMPORARY FLYING RESTRICTION DUE TO EXOGENOUS FACTORS AFFECTING AIRCREW EFFICIENCY</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN30340-AR_40-8-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1032705" target="_blank" rel="noopener">TC 3-04.1-4</a> </td><td class="date">03/18/2026</td><td class="title">FUNDAMENTALS OF FLIGHT</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN46145-TC_3-04.1-4-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1030212" target="_blank" rel="noopener">TC 3-04.5</a> </td><td class="date">12/12/2024</td><td class="title">INSTRUMENT FLIGHT FOR ARMY AVIATORS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN42594-TC_3-04.5-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1024699" target="_blank" rel="noopener">TC 3-04.11</a> </td><td class="date">04/14/2022</td><td class="title">COMMANDER'S AVIATION TRAINING AND STANDARDIZATION PROGRAM</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN35119-TC_3-04.11-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026164" target="_blank" rel="noopener">TC 3-04.12</a> </td><td class="date">12/22/2022</td><td class="title">AVIATION MISSION PLANNING FORMS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN37063-TC_3-04.12-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
-      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1033547" target="_blank" rel="noopener">TC 3-04.1-6</a> </td><td class="date">07/30/2026</td><td class="title">AEROMEDICAL TRAINING FOR FLIGHT PERSONNEL</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN47213-TC_3-04.1-6-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1003624" target="_blank" rel="noopener">AR 95-1</a> </td><td class="date">03/22/2018</td><td class="title">FLIGHT REGULATIONS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN5966_AR_95-1_WEB_FINAL.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="1003624" data-number="AR 95-1" data-title="FLIGHT REGULATIONS" aria-label="Get alerts for AR 95-1"></td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=64645" target="_blank" rel="noopener">AR 95-2</a> </td><td class="date">03/31/2016</td><td class="title">AIR TRAFFIC CONTROL, AIRFIELD/HELIPORT, AND AIRSPACE OPERATIONS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/r95_2.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="64645" data-number="AR 95-2" data-title="AIR TRAFFIC CONTROL, AIRFIELD/HELIPORT, AND AIRSPACE OPERATIONS" aria-label="Get alerts for AR 95-2"></td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1007445" target="_blank" rel="noopener">AR 600-105</a> </td><td class="date">06/05/2020</td><td class="title">AVIATION SERVICE OF RATED ARMY OFFICERS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN17737_AR600_105_FINAL.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="1007445" data-number="AR 600-105" data-title="AVIATION SERVICE OF RATED ARMY OFFICERS" aria-label="Get alerts for AR 600-105"></td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1020677" target="_blank" rel="noopener">AR 40-8</a> </td><td class="date">02/02/2022</td><td class="title">TEMPORARY FLYING RESTRICTION DUE TO EXOGENOUS FACTORS AFFECTING AIRCREW EFFICIENCY</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN30340-AR_40-8-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="1020677" data-number="AR 40-8" data-title="TEMPORARY FLYING RESTRICTION DUE TO EXOGENOUS FACTORS AFFECTING AIRCREW EFFICIENCY" aria-label="Get alerts for AR 40-8"></td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1032705" target="_blank" rel="noopener">TC 3-04.1-4</a> </td><td class="date">03/18/2026</td><td class="title">FUNDAMENTALS OF FLIGHT</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN46145-TC_3-04.1-4-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="1032705" data-number="TC 3-04.1-4" data-title="FUNDAMENTALS OF FLIGHT" aria-label="Get alerts for TC 3-04.1-4"></td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1030212" target="_blank" rel="noopener">TC 3-04.5</a> </td><td class="date">12/12/2024</td><td class="title">INSTRUMENT FLIGHT FOR ARMY AVIATORS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN42594-TC_3-04.5-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="1030212" data-number="TC 3-04.5" data-title="INSTRUMENT FLIGHT FOR ARMY AVIATORS" aria-label="Get alerts for TC 3-04.5"></td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1024699" target="_blank" rel="noopener">TC 3-04.11</a> </td><td class="date">04/14/2022</td><td class="title">COMMANDER'S AVIATION TRAINING AND STANDARDIZATION PROGRAM</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN35119-TC_3-04.11-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="1024699" data-number="TC 3-04.11" data-title="COMMANDER'S AVIATION TRAINING AND STANDARDIZATION PROGRAM" aria-label="Get alerts for TC 3-04.11"></td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026164" target="_blank" rel="noopener">TC 3-04.12</a> </td><td class="date">12/22/2022</td><td class="title">AVIATION MISSION PLANNING FORMS</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN37063-TC_3-04.12-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="1026164" data-number="TC 3-04.12" data-title="AVIATION MISSION PLANNING FORMS" aria-label="Get alerts for TC 3-04.12"></td></tr>
+      <tr><td class="num"><a href="https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1033547" target="_blank" rel="noopener">TC 3-04.1-6</a> </td><td class="date">07/30/2026</td><td class="title">AEROMEDICAL TRAINING FOR FLIGHT PERSONNEL</td><td class="uoi"><a href="https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN47213-TC_3-04.1-6-000-WEB-1.pdf" target="_blank" rel="noopener">PDF</a></td><td class="status">ACTIVE</td><td class="checked">2026-09-16</td><td class="notify"><input type="checkbox" class="pub-check" data-pub="1033547" data-number="TC 3-04.1-6" data-title="AEROMEDICAL TRAINING FOR FLIGHT PERSONNEL" aria-label="Get alerts for TC 3-04.1-6"></td></tr>
     </tbody>
   </table>
 </main>
 <footer>
-  Generated 2026-09-16 00:27. Data pulled from armypubs.army.mil. The Number links back to
+  Generated 2026-09-16 00:32. Data pulled from armypubs.army.mil. The Number links back to
   each source page. Re-run the script to refresh; changed dates are flagged UPDATED.
 </footer>
+
+<script>
+(function(){
+  var NOTIFY_URL = "https://script.google.com/macros/s/AKfycbzJBJp6KptL5l80PSN5-qR0_H6WwpLF-2KD9b9F2R9oIxWZ7H3C9fgZfil1Ah3pI6PhzA/exec";
+  var all = document.getElementById('check-all');
+  if (all) all.addEventListener('change', function(){
+    document.querySelectorAll('.pub-check').forEach(function(c){ c.checked = all.checked; });
+  });
+  var go = document.getElementById('sub-go');
+  if (go) go.addEventListener('click', function(){
+    var input = document.getElementById('sub-email');
+    var msg = document.getElementById('sub-msg');
+    var email = ((input && input.value) || '').trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      msg.className = 'notify-msg err';
+      msg.textContent = 'Please enter a valid email.';
+      return;
+    }
+    var checked = document.querySelectorAll('.pub-check:checked');
+    if (!checked.length) {
+      msg.className = 'notify-msg err';
+      msg.textContent = 'Check at least one pub first.';
+      return;
+    }
+    var pubs = Array.prototype.map.call(checked, function(c){
+      return {
+        pub_id: c.getAttribute('data-pub'),
+        number: c.getAttribute('data-number') || '',
+        title: c.getAttribute('data-title') || ''
+      };
+    });
+    go.disabled = true;
+    fetch(NOTIFY_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ email: email, pubs: pubs })
+    }).then(function(){
+      msg.className = 'notify-msg';
+      msg.textContent = 'Almost done. Check ' + email +
+        ' for one confirmation link covering your ' + pubs.length + ' selected pub(s).';
+      if (input) input.value = '';
+      document.querySelectorAll('.pub-check').forEach(function(c){ c.checked = false; });
+      if (all) all.checked = false;
+    }).catch(function(){
+      msg.className = 'notify-msg err';
+      msg.textContent = 'Something went wrong. Please try again.';
+    }).then(function(){ go.disabled = false; });
+  });
+})();
+</script>
+
 </body>
 </html>
