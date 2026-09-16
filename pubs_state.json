@@ -228,5 +228,113 @@
         "seen": "2026-09-16"
       }
     ]
+  },
+  "1027003": {
+    "pub_id": "1027003",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1027003",
+    "number": "TM 1-1520-280-10",
+    "date": "04/30/2023",
+    "title": "OPERATOR'S MANUAL FOR HELICOPTERS, UTILITY TACTICAL TRANSPORT UH-60M (NSN 1520-01-492-6324) (EIC: RSP) HH-60M (NSN 1520-01-515-4615) (EIC: RSQ) (THIS ITEM IS INCLUDED ON EM 0051)",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "WEB",
+        "href": "https://login.aesip.army.mil/portal/faces/home"
+      },
+      {
+        "text": "FAQs",
+        "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
+      }
+    ],
+    "first_seen": "2026-09-16",
+    "last_checked": "2026-09-16",
+    "last_changed": "2026-09-16",
+    "history": [
+      {
+        "date": "04/30/2023",
+        "seen": "2026-09-16"
+      }
+    ]
+  },
+  "1003643": {
+    "pub_id": "1003643",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1003643",
+    "number": "TM 1-1520-280-CL",
+    "date": "10/30/2017",
+    "title": "TECHNICAL MANUAL OPERATOR\u2019S AND CREWMEMBER\u2019S CHECKLIST FOR HELICOPTERS, UTILITY TACTICAL TRANSPORT UH-60M (NSN 1520-01-492-6324) (EIC: RSP) HH-60M (NSN 1520-01-515-4615) (EIC: RSQ)",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "WEB",
+        "href": "https://login.aesip.army.mil/portal/faces/home"
+      },
+      {
+        "text": "FAQs",
+        "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
+      }
+    ],
+    "first_seen": "2026-09-16",
+    "last_checked": "2026-09-16",
+    "last_changed": "2026-09-16",
+    "history": [
+      {
+        "date": "10/30/2017",
+        "seen": "2026-09-16"
+      }
+    ]
+  },
+  "1026992": {
+    "pub_id": "1026992",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026992",
+    "number": "TM 1-1520-280-CL-1",
+    "date": "04/30/2023",
+    "title": "OPERATOR'S AND CREWMEMBER'S CHECKLIST FOR HELICOPTERS, UTILITY TACTICAL TRANSPORT UH-60M (NSN 1520-01-492-6324)(EIC: RSP) HH-60M (NSN 1520-01-515-4615)(EIC: RSQ) {THIS MANUAL IS NOT COMPLETE WITHOUT TM 1-1520-280-CL-2.}",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "WEB",
+        "href": "https://login.aesip.army.mil/portal/faces/home"
+      },
+      {
+        "text": "FAQs",
+        "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
+      }
+    ],
+    "first_seen": "2026-09-16",
+    "last_checked": "2026-09-16",
+    "last_changed": "2026-09-16",
+    "history": [
+      {
+        "date": "04/30/2023",
+        "seen": "2026-09-16"
+      }
+    ]
+  },
+  "1026994": {
+    "pub_id": "1026994",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026994",
+    "number": "TM 1-1520-280-CL-2",
+    "date": "04/30/2023",
+    "title": "OPERATOR'S AND CREWMEMBER'S CHECKLIST FOR HELICOPTERS, UTILITY TACTICAL TRANSPORT UH-60M (NSN 1520-01-492-6324)(EIC: RSP) HH-60M (NSN 1520-01-515-4615)(EIC: RSQ)",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "WEB",
+        "href": "https://login.aesip.army.mil/portal/faces/home"
+      },
+      {
+        "text": "FAQs",
+        "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
+      }
+    ],
+    "first_seen": "2026-09-16",
+    "last_checked": "2026-09-16",
+    "last_changed": "2026-09-16",
+    "history": [
+      {
+        "date": "04/30/2023",
+        "seen": "2026-09-16"
+      }
+    ]
   }
 }
