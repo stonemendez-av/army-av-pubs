@@ -47,6 +47,81 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_PUBS_FILE = os.path.join(SCRIPT_DIR, "pubs.txt")
 STATE_FILE = os.path.join(SCRIPT_DIR, "pubs_state.json")
 DEFAULT_OUT_FILE = os.path.join(SCRIPT_DIR, "dashboard.html")
+NOTIFY_URL_FILE = os.path.join(SCRIPT_DIR, "notify_url.txt")
+
+# JavaScript for the batch email signup. %s is replaced with the JSON-encoded
+# Google Apps Script web app URL. Its braces are literal (not run through
+# str.format), so no doubling is needed here.
+NOTIFY_JS_TEMPLATE = """
+<script>
+(function(){
+  var NOTIFY_URL = %s;
+  var all = document.getElementById('check-all');
+  if (all) all.addEventListener('change', function(){
+    document.querySelectorAll('.pub-check').forEach(function(c){ c.checked = all.checked; });
+  });
+  var go = document.getElementById('sub-go');
+  if (go) go.addEventListener('click', function(){
+    var input = document.getElementById('sub-email');
+    var msg = document.getElementById('sub-msg');
+    var email = ((input && input.value) || '').trim();
+    if (!/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email)) {
+      msg.className = 'notify-msg err';
+      msg.textContent = 'Please enter a valid email.';
+      return;
+    }
+    var checked = document.querySelectorAll('.pub-check:checked');
+    if (!checked.length) {
+      msg.className = 'notify-msg err';
+      msg.textContent = 'Check at least one pub first.';
+      return;
+    }
+    var pubs = Array.prototype.map.call(checked, function(c){
+      return {
+        pub_id: c.getAttribute('data-pub'),
+        number: c.getAttribute('data-number') || '',
+        title: c.getAttribute('data-title') || ''
+      };
+    });
+    go.disabled = true;
+    fetch(NOTIFY_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ email: email, pubs: pubs })
+    }).then(function(){
+      msg.className = 'notify-msg';
+      msg.textContent = 'Almost done. Check ' + email +
+        ' for one confirmation link covering your ' + pubs.length + ' selected pub(s).';
+      if (input) input.value = '';
+      document.querySelectorAll('.pub-check').forEach(function(c){ c.checked = false; });
+      if (all) all.checked = false;
+    }).catch(function(){
+      msg.className = 'notify-msg err';
+      msg.textContent = 'Something went wrong. Please try again.';
+    }).then(function(){ go.disabled = false; });
+  });
+})();
+</script>
+"""
+
+
+def read_notify_url():
+    """
+    The Google Apps Script web app URL. Read from the NOTIFY_URL environment
+    variable, or from notify_url.txt next to this script. Empty means the
+    signup buttons are left off the page.
+    """
+    env = os.environ.get("NOTIFY_URL", "").strip()
+    if env:
+        return env
+    if os.path.exists(NOTIFY_URL_FILE):
+        with open(NOTIFY_URL_FILE, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    return line
+    return ""
 
 DETAIL_URL = "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID={}"
 
@@ -318,9 +393,10 @@ def render_badge(flag):
     return ""
 
 
-def build_html(display, generated_at):
+def build_html(display, generated_at, notify_url=""):
     updated = [r for r in display if r.get("flag") == "updated"]
     errors = [r for r in display if r.get("flag") == "error"]
+    notify_on = bool(notify_url)
 
     banner = ""
     if updated:
@@ -342,6 +418,20 @@ def build_html(display, generated_at):
         number_cell = esc(r.get("number") or r["pub_id"])
         number_link = '<a href="{}" target="_blank" rel="noopener">{}</a>'.format(
             esc(r["url"]), number_cell)
+        notify_cell = ""
+        if notify_on:
+            pid = esc(r["pub_id"])
+            notify_cell = (
+                "<td class=\"notify\">"
+                "<input type=\"checkbox\" class=\"pub-check\" data-pub=\"{pid}\" "
+                "data-number=\"{dnum}\" data-title=\"{dtitle}\" "
+                "aria-label=\"Get alerts for {dnum}\">"
+                "</td>"
+            ).format(
+                pid=pid,
+                dnum=esc(r.get("number") or r["pub_id"]),
+                dtitle=esc(r.get("title") or ""),
+            )
         rows.append(
             "<tr{cls}>"
             "<td class=\"num\">{num} {badge}</td>"
@@ -350,6 +440,7 @@ def build_html(display, generated_at):
             "<td class=\"uoi\">{uoi}</td>"
             "<td class=\"status\">{status}</td>"
             "<td class=\"checked\">{checked}</td>"
+            "{notify}"
             "</tr>".format(
                 cls=row_class,
                 num=number_link,
@@ -359,7 +450,24 @@ def build_html(display, generated_at):
                 uoi=render_uoi(r.get("uoi") or []),
                 status=esc(r.get("status") or ""),
                 checked=esc(r.get("last_checked") or ""),
+                notify=notify_cell,
             ))
+
+    notify_js = NOTIFY_JS_TEMPLATE % json.dumps(notify_url) if notify_on else ""
+    subscribe_bar = ""
+    if notify_on:
+        subscribe_bar = (
+            "<div class=\"subscribe-bar\">"
+            "<span class=\"sb-label\">Get email alerts when a pub changes: "
+            "check the ones you want, enter your email, and subscribe.</span>"
+            "<div class=\"sb-row\">"
+            "<input type=\"email\" id=\"sub-email\" placeholder=\"you@example.com\" "
+            "autocomplete=\"email\">"
+            "<button id=\"sub-go\">Subscribe to checked</button>"
+            "</div>"
+            "<div id=\"sub-msg\" class=\"notify-msg\"></div>"
+            "</div>"
+        )
 
     return """<!DOCTYPE html>
 <html lang="en">
@@ -416,6 +524,19 @@ def build_html(display, generated_at):
   .muted {{ color: #999; }}
   footer {{ max-width: 1150px; margin: 0 auto; padding: 8px 22px 30px;
             color: #777; font-size: 12px; }}
+  .notify-msg {{ font-size: 12px; margin-top: 6px; color: #2e7d32; }}
+  .notify-msg.err {{ color: #c62828; }}
+  .subscribe-bar {{ background: #fff; border: 1px solid var(--line); border-radius: 6px;
+            padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }}
+  .subscribe-bar .sb-label {{ font-size: 14px; display: block; margin-bottom: 10px; }}
+  .subscribe-bar .sb-row {{ display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }}
+  #sub-email {{ padding: 8px 10px; font-size: 14px; border: 1px solid #bbb;
+            border-radius: 5px; width: 240px; max-width: 100%; }}
+  #sub-go {{ background: #0b3d91; color: #fff; border: none; border-radius: 5px;
+            padding: 8px 14px; font-size: 14px; cursor: pointer; }}
+  #sub-go:hover {{ background: #092f70; }}
+  .pub-check {{ width: 18px; height: 18px; cursor: pointer; }}
+  td.notify, th.notify {{ text-align: center; }}
 </style>
 </head>
 <body>
@@ -425,6 +546,7 @@ def build_html(display, generated_at):
 </header>
 <main>
   {banner}
+  {subscribe_bar}
   <table>
     <thead>
       <tr>
@@ -434,6 +556,7 @@ def build_html(display, generated_at):
         <th>Unit Of Issue(s)</th>
         <th>Status</th>
         <th>Last Checked</th>
+        {notify_th}
       </tr>
     </thead>
     <tbody>
@@ -445,13 +568,18 @@ def build_html(display, generated_at):
   Generated {generated}. Data pulled from armypubs.army.mil. The Number links back to
   each source page. Re-run the script to refresh; changed dates are flagged UPDATED.
 </footer>
+{notify_js}
 </body>
 </html>
 """.format(
         count=len(display),
         banner=banner,
+        subscribe_bar=subscribe_bar,
         rows="\n      ".join(rows),
         generated=esc(generated_at),
+        notify_th=('<th class="notify">Alert<br><input type="checkbox" id="check-all" '
+                   'aria-label="Select all pubs"></th>' if notify_on else ""),
+        notify_js=notify_js,
     )
 
 
@@ -477,7 +605,7 @@ def main():
     save_state(state)
 
     generated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    html = build_html(display, generated_at)
+    html = build_html(display, generated_at, notify_url=read_notify_url())
     with open(args.out, "w", encoding="utf-8") as f:
         f.write(html)
 
