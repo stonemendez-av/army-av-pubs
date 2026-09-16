@@ -58,7 +58,11 @@ NOTIFY_JS_TEMPLATE = """
   var NOTIFY_URL = %s;
   var all = document.getElementById('check-all');
   if (all) all.addEventListener('change', function(){
-    document.querySelectorAll('.pub-check').forEach(function(c){ c.checked = all.checked; });
+    document.querySelectorAll('.pub-check').forEach(function(c){
+      var row = c.closest('tr');
+      if (row && row.style.display === 'none') return;  // skip rows hidden by the active tab
+      c.checked = all.checked;
+    });
   });
   var go = document.getElementById('sub-go');
   if (go) go.addEventListener('click', function(){
@@ -393,6 +397,49 @@ def render_badge(flag):
     return ""
 
 
+def pub_category(number, pub_id):
+    """
+    Derive the tab/category from a pub number: the leading letter-only tokens
+    before the first token that contains a digit. "AR 95-1" -> "AR",
+    "ATP 3-04.1" -> "ATP", "DA FORM 7305" -> "DA FORM", "DA PAM 385-64" -> "DA PAM".
+    """
+    s = (number or "").strip()
+    if not s:
+        return "Other"
+    tokens = s.split()
+    prefix = []
+    for t in tokens:
+        if any(ch.isdigit() for ch in t):
+            break
+        prefix.append(t)
+    if not prefix:
+        return tokens[0].upper() if tokens else "Other"
+    return " ".join(prefix).upper()
+
+
+# Tab filtering. Included on every page (works with or without the signup UI).
+TABS_JS = """
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.tab');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      var cat = t.getAttribute('data-cat');
+      document.querySelectorAll('tbody tr').forEach(function(row){
+        var show = (cat === '__all__') || (row.getAttribute('data-cat') === cat);
+        row.style.display = show ? '' : 'none';
+      });
+      var all = document.getElementById('check-all');
+      if (all) all.checked = false;
+    });
+  });
+})();
+</script>
+"""
+
+
 def build_html(display, generated_at, notify_url=""):
     updated = [r for r in display if r.get("flag") == "updated"]
     errors = [r for r in display if r.get("flag") == "error"]
@@ -411,10 +458,13 @@ def build_html(display, generated_at, notify_url=""):
                    '</div>').format(len(errors), names)
 
     rows = []
+    cat_counts = {}
     for r in display:
         flag = r.get("flag", "ok")
         row_class = " class=\"row-updated\"" if flag == "updated" else (
             " class=\"row-error\"" if flag == "error" else "")
+        cat = pub_category(r.get("number"), r["pub_id"])
+        cat_counts[cat] = cat_counts.get(cat, 0) + 1
         number_cell = esc(r.get("number") or r["pub_id"])
         number_link = '<a href="{}" target="_blank" rel="noopener">{}</a>'.format(
             esc(r["url"]), number_cell)
@@ -433,7 +483,7 @@ def build_html(display, generated_at, notify_url=""):
                 dtitle=esc(r.get("title") or ""),
             )
         rows.append(
-            "<tr{cls}>"
+            "<tr{cls} data-cat=\"{cat}\">"
             "<td class=\"num\">{num} {badge}</td>"
             "<td class=\"date\">{date}</td>"
             "<td class=\"title\">{title}</td>"
@@ -443,6 +493,7 @@ def build_html(display, generated_at, notify_url=""):
             "{notify}"
             "</tr>".format(
                 cls=row_class,
+                cat=esc(cat),
                 num=number_link,
                 badge=render_badge(flag),
                 date=esc(r.get("date") or "?"),
@@ -452,6 +503,13 @@ def build_html(display, generated_at, notify_url=""):
                 checked=esc(r.get("last_checked") or ""),
                 notify=notify_cell,
             ))
+
+    # Tabs: All first, then each category alphabetically, with counts.
+    tab_buttons = ['<button class="tab active" data-cat="__all__">All ({})</button>'.format(len(display))]
+    for cat in sorted(cat_counts):
+        tab_buttons.append('<button class="tab" data-cat="{c}">{c} ({n})</button>'.format(
+            c=esc(cat), n=cat_counts[cat]))
+    tabs = '<div class="tabs">' + "".join(tab_buttons) + '</div>' if display else ""
 
     notify_js = NOTIFY_JS_TEMPLATE % json.dumps(notify_url) if notify_on else ""
     subscribe_bar = ""
@@ -537,6 +595,12 @@ def build_html(display, generated_at, notify_url=""):
   #sub-go:hover {{ background: #092f70; }}
   .pub-check {{ width: 18px; height: 18px; cursor: pointer; }}
   td.notify, th.notify {{ text-align: center; }}
+  .tabs {{ display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }}
+  .tab {{ background: #fff; border: 1px solid var(--line); border-radius: 999px;
+          padding: 7px 14px; font-size: 13px; font-weight: 600; color: #333;
+          cursor: pointer; }}
+  .tab:hover {{ border-color: #b0b0b0; }}
+  .tab.active {{ background: var(--dark); color: #fff; border-color: var(--dark); }}
 </style>
 </head>
 <body>
@@ -547,6 +611,7 @@ def build_html(display, generated_at, notify_url=""):
 <main>
   {banner}
   {subscribe_bar}
+  {tabs}
   <table>
     <thead>
       <tr>
@@ -568,6 +633,7 @@ def build_html(display, generated_at, notify_url=""):
   Generated {generated}. Data pulled from armypubs.army.mil. The Number links back to
   each source page. Re-run the script to refresh; changed dates are flagged UPDATED.
 </footer>
+{tabs_js}
 {notify_js}
 </body>
 </html>
@@ -575,10 +641,12 @@ def build_html(display, generated_at, notify_url=""):
         count=len(display),
         banner=banner,
         subscribe_bar=subscribe_bar,
+        tabs=tabs,
         rows="\n      ".join(rows),
         generated=esc(generated_at),
         notify_th=('<th class="notify">Alert<br><input type="checkbox" id="check-all" '
                    'aria-label="Select all pubs"></th>' if notify_on else ""),
+        tabs_js=(TABS_JS if display else ""),
         notify_js=notify_js,
     )
 
