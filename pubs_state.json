@@ -336,5 +336,59 @@
         "seen": "2026-09-16"
       }
     ]
+  },
+  "1026997": {
+    "pub_id": "1026997",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026997",
+    "number": "TM 1-1520-246-CL-1",
+    "date": "04/30/2023",
+    "title": "OPERATOR'S AND CREWMEMBER'S CHECKLIST FOR HELICOPTERS, UTILITY TACTICAL TRANSPORT UH-60V (NSN 1520-01-655-8010)(EIC: 99Y)",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "WEB",
+        "href": "https://login.aesip.army.mil/portal/faces/home"
+      },
+      {
+        "text": "FAQs",
+        "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
+      }
+    ],
+    "first_seen": "2026-09-16",
+    "last_checked": "2026-09-16",
+    "last_changed": "2026-09-16",
+    "history": [
+      {
+        "date": "04/30/2023",
+        "seen": "2026-09-16"
+      }
+    ]
+  },
+  "1026998": {
+    "pub_id": "1026998",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1026998",
+    "number": "TM 1-1520-246-CL-2",
+    "date": "04/30/2023",
+    "title": "OPERATOR'S AND CREWMEMBER'S CHECKLIST FOR HELICOPTERS, UTILITY TACTICAL TRANSPORT UH-60V (NSN 1520-01-655-8010)(EIC: 99Y)",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "WEB",
+        "href": "https://login.aesip.army.mil/portal/faces/home"
+      },
+      {
+        "text": "FAQs",
+        "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
+      }
+    ],
+    "first_seen": "2026-09-16",
+    "last_checked": "2026-09-16",
+    "last_changed": "2026-09-16",
+    "history": [
+      {
+        "date": "04/30/2023",
+        "seen": "2026-09-16"
+      }
+    ]
   }
 }
