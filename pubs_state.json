@@ -13,7 +13,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -36,7 +36,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -59,7 +59,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -82,7 +82,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -105,7 +105,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -128,7 +128,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -151,7 +151,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -174,7 +174,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -197,7 +197,7 @@
       }
     ],
     "first_seen": "2026-09-15",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -220,7 +220,7 @@
       }
     ],
     "first_seen": "2026-09-16",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-16",
     "history": [
       {
@@ -247,7 +247,7 @@
       }
     ],
     "first_seen": "2026-09-16",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-16",
     "history": [
       {
@@ -274,7 +274,7 @@
       }
     ],
     "first_seen": "2026-09-16",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-16",
     "history": [
       {
@@ -301,7 +301,7 @@
       }
     ],
     "first_seen": "2026-09-16",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-16",
     "history": [
       {
@@ -328,7 +328,7 @@
       }
     ],
     "first_seen": "2026-09-16",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-16",
     "history": [
       {
@@ -355,7 +355,7 @@
       }
     ],
     "first_seen": "2026-09-16",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-16",
     "history": [
       {
@@ -382,12 +382,223 @@
       }
     ],
     "first_seen": "2026-09-16",
-    "last_checked": "2026-09-16",
+    "last_checked": "2026-09-17",
     "last_changed": "2026-09-16",
     "history": [
       {
         "date": "04/30/2023",
         "seen": "2026-09-16"
+      }
+    ]
+  },
+  "1007289": {
+    "pub_id": "1007289",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1007289",
+    "number": "ATP 4-02.2",
+    "date": "07/12/2019",
+    "title": "MEDICAL EVACUATION",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "EBOOK",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN17834-ATP_4-02.2-000-EBOOK-2.epub"
+      },
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN17834_ATP 4-02x2 FINAL WEB.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "07/12/2019",
+        "seen": "2026-09-17"
+      }
+    ]
+  },
+  "1021219": {
+    "pub_id": "1021219",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1021219",
+    "number": "ATP 3-04.7",
+    "date": "10/20/2020",
+    "title": "ARMY AVIATION MAINTENANCE",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN31028-ATP_3-04.7-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "10/20/2020",
+        "seen": "2026-09-17"
+      }
+    ]
+  },
+  "1033612": {
+    "pub_id": "1033612",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1033612",
+    "number": "FM 3-52",
+    "date": "08/11/2026",
+    "title": "AIRSPACE",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN47294-FM_3-52-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "08/11/2026",
+        "seen": "2026-09-17"
+      }
+    ]
+  },
+  "105021": {
+    "pub_id": "105021",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=105021",
+    "number": "FM 3-99",
+    "date": "03/06/2015",
+    "title": "AIRBORNE AND AIR ASSAULT OPERATIONS (THIS ITEM IS PUBLISHED W/ BASIC INCL C1)",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN44799-FM_3-99-001-WEB-4.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "03/06/2015",
+        "seen": "2026-09-17"
+      }
+    ]
+  },
+  "1030760": {
+    "pub_id": "1030760",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1030760",
+    "number": "FM 3-04",
+    "date": "03/27/2025",
+    "title": "ARMY AVIATION",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN43343-FM_3-04-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "03/27/2025",
+        "seen": "2026-09-17"
+      }
+    ]
+  },
+  "1027223": {
+    "pub_id": "1027223",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=1027223",
+    "number": "TC 3-04.3",
+    "date": "06/27/2023",
+    "title": "AVIATION GUNNERY",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_c/ARN38632-TC_3-04.3-000-WEB-1.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "06/27/2023",
+        "seen": "2026-09-17"
+      }
+    ]
+  },
+  "102513": {
+    "pub_id": "102513",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=102513",
+    "number": "TM 4-48.09",
+    "date": "07/23/2012",
+    "title": "MULTISERVICE HELICOPTER SLING LOAD: BASIC OPERATIONS AND EQUIPMENT {MCRP 4-11.3E, VOL I; NTTP 3-04.11; AFMAN 11-223 (I), VOL I; COMDTINST M13482.2B}",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/tm4_48x09.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "07/23/2012",
+        "seen": "2026-09-17"
+      }
+    ]
+  },
+  "102504": {
+    "pub_id": "102504",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=102504",
+    "number": "TM 4-48.10",
+    "date": "07/05/2013",
+    "title": "MULTISERVICE HELICOPTER SLING LOAD: SINGLE-POINT LOAD RIGGING PROCEDURES",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/tm4_48x10.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "07/05/2013",
+        "seen": "2026-09-17"
+      }
+    ]
+  },
+  "102505": {
+    "pub_id": "102505",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=102505",
+    "number": "TM 4-48.11",
+    "date": "07/05/2013",
+    "title": "MULTISERVICE HELICOPTER SLING LOAD: DUAL-POINT LOAD RIGGING PROCEDURES",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "PDF",
+        "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/tm4_48x11.pdf"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "07/05/2013",
+        "seen": "2026-09-17"
       }
     ]
   }
