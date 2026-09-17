@@ -601,5 +601,32 @@
         "seen": "2026-09-17"
       }
     ]
+  },
+  "80020": {
+    "pub_id": "80020",
+    "url": "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID=80020",
+    "number": "TM 11-5855-313-10",
+    "date": "08/30/2014",
+    "title": "OPERATOR`S MANUAL FOR AVIATOR`S NIGHT VISION IMAGING SYSTEM (ANVIS) AN/AVS-6(V)3 (NSN 5855-01-475-7061) (EIC: IPZ) (THIS ITEM IS INCLUDED ON EM 0163)",
+    "status": "ACTIVE",
+    "uoi": [
+      {
+        "text": "WEB",
+        "href": "https://login.aesip.army.mil/portal/faces/home"
+      },
+      {
+        "text": "FAQs",
+        "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
+      }
+    ],
+    "first_seen": "2026-09-17",
+    "last_checked": "2026-09-17",
+    "last_changed": "2026-09-17",
+    "history": [
+      {
+        "date": "08/30/2014",
+        "seen": "2026-09-17"
+      }
+    ]
   }
 }
