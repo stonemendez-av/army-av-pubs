@@ -129,16 +129,29 @@ def read_notify_url():
 
 DETAIL_URL = "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID={}"
 
-# A normal browser User-Agent. The APD pages are server-rendered, so a plain
-# request receives the full table without needing JavaScript.
+# Full set of headers a current Chrome sends, so the request looks like a real
+# browser rather than a bare script. Some bot filters block requests that are
+# missing these. The APD pages are server-rendered, so a plain request receives
+# the full table without needing JavaScript.
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0.0.0 Safari/537.36"
+        "Chrome/140.0.0.0 Safari/537.36"
     ),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept": ("text/html,application/xhtml+xml,application/xml;q=0.9,"
+               "image/avif,image/webp,image/apng,*/*;q=0.8"),
     "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Ch-Ua": '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Sec-Ch-Ua-Platform": '"macOS"',
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-User": "?1",
+    "Referer": "https://armypubs.army.mil/",
 }
 
 # Seconds to wait between requests, to stay polite to the server.
@@ -152,6 +165,7 @@ LABELS = {
     "title": "pub/form title",
     "uoi": "unit of issue(s)",
     "status": "pub/form status",
+    "changes": "changes",
 }
 
 
@@ -231,11 +245,32 @@ def save_state(state):
 # Fetch and parse
 # ---------------------------------------------------------------------------
 
+def warm_up(session):
+    """
+    Visit the site root once so the session picks up any cookie a bot filter
+    sets on first contact, and so later requests carry a plausible referer.
+    Failures here are non-fatal; the per-pub fetches still run.
+    """
+    try:
+        session.get("https://armypubs.army.mil/", headers=HEADERS, timeout=30)
+        time.sleep(1.0)
+    except Exception:
+        pass
+
+
 def fetch(pub_id, session):
     url = DETAIL_URL.format(pub_id)
-    resp = session.get(url, headers=HEADERS, timeout=30)
-    resp.raise_for_status()
-    return url, resp.text
+    last_err = None
+    for attempt in range(2):  # one retry, in case of a transient block/timeout
+        try:
+            resp = session.get(url, headers=HEADERS, timeout=30)
+            resp.raise_for_status()
+            return url, resp.text
+        except Exception as e:
+            last_err = e
+            if attempt == 0:
+                time.sleep(3.0)
+    raise last_err
 
 
 def parse_detail(html, page_url):
@@ -248,7 +283,7 @@ def parse_detail(html, page_url):
     the right cell. For Unit Of Issue(s) we grab the actual links.
     """
     soup = BeautifulSoup(html, "html.parser")
-    rec = {"number": "", "date": "", "title": "", "status": "", "uoi": []}
+    rec = {"number": "", "date": "", "title": "", "status": "", "uoi": [], "change": ""}
 
     for tr in soup.find_all("tr"):
         cells = tr.find_all(["td", "th"])
@@ -265,6 +300,13 @@ def parse_detail(html, page_url):
             rec["title"] = value_cell.get_text(strip=True)
         elif label == LABELS["status"]:
             rec["status"] = value_cell.get_text(strip=True)
+        elif label == LABELS["changes"]:
+            # The cell lists changes newest-first, one per <br>:
+            # "003 - 09/11/2026" / "002 - 04/30/2025" / ...
+            # Capture the newest (first non-empty line) as the latest change.
+            lines = [s.strip() for s in value_cell.get_text("\n").split("\n")]
+            lines = [s for s in lines if s]
+            rec["change"] = lines[0] if lines else ""
         elif label == LABELS["uoi"]:
             links = []
             for a in value_cell.find_all("a"):
@@ -301,6 +343,7 @@ def check_all(pub_ids, state):
     (updated / new / error) used only for this run's dashboard.
     """
     session = requests.Session()
+    warm_up(session)
     display = []
     today = today_str()
 
@@ -314,6 +357,9 @@ def check_all(pub_ids, state):
 
             is_new = prev is None
             date_changed = (not is_new) and prev.get("date", "") != rec["date"] and rec["date"] != ""
+            # A new Change counts as an update too, even if the Pub/Form Date did not move.
+            change_changed = (not is_new) and prev.get("change", "") != rec["change"] and rec["change"] != ""
+            updated = date_changed or change_changed
 
             entry = {
                 "pub_id": pub_id,
@@ -323,22 +369,26 @@ def check_all(pub_ids, state):
                 "title": rec["title"] or (prev.get("title", "") if prev else ""),
                 "status": rec["status"] or (prev.get("status", "") if prev else ""),
                 "uoi": rec["uoi"] if rec["uoi"] else (prev.get("uoi", []) if prev else []),
+                # Keep last known change if this pull somehow returned blank.
+                "change": rec["change"] if rec["change"] else (prev.get("change", "") if prev else ""),
                 "first_seen": prev.get("first_seen", today) if prev else today,
                 "last_checked": today,
-                "last_changed": today if (is_new or date_changed) else (prev.get("last_changed", today) if prev else today),
+                "last_changed": today if (is_new or updated) else (prev.get("last_changed", today) if prev else today),
                 "history": prev.get("history", []) if prev else [],
             }
-            if is_new or date_changed:
-                entry["history"].append({"date": rec["date"], "seen": today})
+            if is_new or updated:
+                entry["history"].append({"date": rec["date"], "change": rec["change"], "seen": today})
 
             state[pub_id] = entry
 
             row.update(entry)
-            row["flag"] = "new" if is_new else ("updated" if date_changed else "ok")
-            print("  [{}/{}] {}  {}  {}".format(
+            row["flag"] = "new" if is_new else ("updated" if updated else "ok")
+            row["change_only"] = change_changed and not date_changed
+            print("  [{}/{}] {}  {}  chg:{}  {}".format(
                 i + 1, len(pub_ids),
                 (entry["number"] or pub_id).ljust(14),
                 (entry["date"] or "?").ljust(12),
+                (entry["change"] or "-").ljust(18),
                 row["flag"].upper()))
 
         except Exception as e:
@@ -352,6 +402,7 @@ def check_all(pub_ids, state):
             row.setdefault("title", "")
             row.setdefault("status", "")
             row.setdefault("uoi", [])
+            row.setdefault("change", "")
             row["last_checked"] = prev.get("last_checked", "never") if prev else "never"
             print("  [{}/{}] {}  CHECK FAILED: {}".format(i + 1, len(pub_ids), pub_id, e))
 
@@ -448,9 +499,12 @@ def build_html(display, generated_at, notify_url=""):
     banner = ""
     if updated:
         names = ", ".join(esc(r.get("number") or r["pub_id"]) for r in updated)
+        change_only_names = [esc(r.get("number") or r["pub_id"]) for r in updated if r.get("change_only")]
+        extra = (" (new Change, Pub/Form Date unchanged: {})".format(", ".join(change_only_names))
+                 if change_only_names else "")
         banner += ('<div class="alert alert-updated">'
-                   '{} publication(s) changed since the last check: {}'
-                   '</div>').format(len(updated), names)
+                   '{} publication(s) changed since the last check: {}{}'
+                   '</div>').format(len(updated), names, extra)
     if errors:
         names = ", ".join(esc(r.get("number") or r["pub_id"]) for r in errors)
         banner += ('<div class="alert alert-error">'
@@ -482,10 +536,17 @@ def build_html(display, generated_at, notify_url=""):
                 dnum=esc(r.get("number") or r["pub_id"]),
                 dtitle=esc(r.get("title") or ""),
             )
+        badge = render_badge(flag)
+        if r.get("change_only"):
+            # Distinguish a new Change from a Pub/Form Date revision.
+            badge = '<span class="badge badge-change">NEW CHANGE</span>'
+        change_val = r.get("change") or ""
+        change_cell = esc(change_val) if change_val else '<span class="muted">none</span>'
         rows.append(
             "<tr{cls} data-cat=\"{cat}\">"
             "<td class=\"num\">{num} {badge}</td>"
             "<td class=\"date\">{date}</td>"
+            "<td class=\"change\">{change}</td>"
             "<td class=\"title\">{title}</td>"
             "<td class=\"uoi\">{uoi}</td>"
             "<td class=\"status\">{status}</td>"
@@ -495,8 +556,9 @@ def build_html(display, generated_at, notify_url=""):
                 cls=row_class,
                 cat=esc(cat),
                 num=number_link,
-                badge=render_badge(flag),
+                badge=badge,
                 date=esc(r.get("date") or "?"),
+                change=change_cell,
                 title=esc(r.get("title") or ""),
                 uoi=render_uoi(r.get("uoi") or []),
                 status=esc(r.get("status") or ""),
@@ -578,8 +640,10 @@ def build_html(display, generated_at, notify_url=""):
             border-radius: 10px; margin-left: 6px; vertical-align: middle; letter-spacing: .3px; }}
   .badge-updated {{ background: var(--updated-bar); color: #fff; }}
   .badge-new {{ background: #0b3d91; color: #fff; }}
+  .badge-change {{ background: #b26a00; color: #fff; }}
   .badge-error {{ background: var(--error-bar); color: #fff; }}
   .muted {{ color: #999; }}
+  .change {{ white-space: nowrap; }}
   footer {{ max-width: 1150px; margin: 0 auto; padding: 8px 22px 30px;
             color: #777; font-size: 12px; }}
   .notify-msg {{ font-size: 12px; margin-top: 6px; color: #2e7d32; }}
@@ -617,6 +681,7 @@ def build_html(display, generated_at, notify_url=""):
       <tr>
         <th>Pub/Form Number</th>
         <th>Pub/Form Date</th>
+        <th>Latest Change</th>
         <th>Pub/Form Title</th>
         <th>Unit Of Issue(s)</th>
         <th>Status</th>
