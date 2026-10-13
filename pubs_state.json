@@ -12,8 +12,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN5966_AR_95-1_WEB_FINAL.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -35,8 +36,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/r95_2.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -58,8 +60,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN17737_AR600_105_FINAL.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -81,8 +84,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN30340-AR_40-8-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -104,8 +108,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN46145-TC_3-04.1-4-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -127,8 +132,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN42594-TC_3-04.5-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -150,8 +156,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN35119-TC_3-04.11-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -173,8 +180,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN37063-TC_3-04.12-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -196,8 +204,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN47213-TC_3-04.1-6-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-15",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-15",
     "history": [
       {
@@ -219,8 +228,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_d/pdf/web/ARN21970_ATP_3-04x1_FINAL_WEB.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-16",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-16",
     "history": [
       {
@@ -246,13 +256,19 @@
         "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
       }
     ],
+    "change": "003 - 09/11/2026",
     "first_seen": "2026-09-16",
-    "last_checked": "2026-10-12",
-    "last_changed": "2026-09-16",
+    "last_checked": "2026-10-13",
+    "last_changed": "2026-10-13",
     "history": [
       {
         "date": "04/30/2023",
         "seen": "2026-09-16"
+      },
+      {
+        "date": "04/30/2023",
+        "change": "003 - 09/11/2026",
+        "seen": "2026-10-13"
       }
     ]
   },
@@ -273,13 +289,19 @@
         "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
       }
     ],
+    "change": "005 - 08/31/2022",
     "first_seen": "2026-09-16",
-    "last_checked": "2026-10-12",
-    "last_changed": "2026-09-16",
+    "last_checked": "2026-10-13",
+    "last_changed": "2026-10-13",
     "history": [
       {
         "date": "10/30/2017",
         "seen": "2026-09-16"
+      },
+      {
+        "date": "10/30/2017",
+        "change": "005 - 08/31/2022",
+        "seen": "2026-10-13"
       }
     ]
   },
@@ -300,13 +322,19 @@
         "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
       }
     ],
+    "change": "003 - 09/11/2026",
     "first_seen": "2026-09-16",
-    "last_checked": "2026-10-12",
-    "last_changed": "2026-09-16",
+    "last_checked": "2026-10-13",
+    "last_changed": "2026-10-13",
     "history": [
       {
         "date": "04/30/2023",
         "seen": "2026-09-16"
+      },
+      {
+        "date": "04/30/2023",
+        "change": "003 - 09/11/2026",
+        "seen": "2026-10-13"
       }
     ]
   },
@@ -327,13 +355,19 @@
         "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
       }
     ],
+    "change": "003 - 09/11/2026",
     "first_seen": "2026-09-16",
-    "last_checked": "2026-10-12",
-    "last_changed": "2026-09-16",
+    "last_checked": "2026-10-13",
+    "last_changed": "2026-10-13",
     "history": [
       {
         "date": "04/30/2023",
         "seen": "2026-09-16"
+      },
+      {
+        "date": "04/30/2023",
+        "change": "003 - 09/11/2026",
+        "seen": "2026-10-13"
       }
     ]
   },
@@ -354,13 +388,19 @@
         "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
       }
     ],
+    "change": "003 - 09/11/2026",
     "first_seen": "2026-09-16",
-    "last_checked": "2026-10-12",
-    "last_changed": "2026-09-16",
+    "last_checked": "2026-10-13",
+    "last_changed": "2026-10-13",
     "history": [
       {
         "date": "04/30/2023",
         "seen": "2026-09-16"
+      },
+      {
+        "date": "04/30/2023",
+        "change": "003 - 09/11/2026",
+        "seen": "2026-10-13"
       }
     ]
   },
@@ -381,13 +421,19 @@
         "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
       }
     ],
+    "change": "003 - 09/11/2026",
     "first_seen": "2026-09-16",
-    "last_checked": "2026-10-12",
-    "last_changed": "2026-09-16",
+    "last_checked": "2026-10-13",
+    "last_changed": "2026-10-13",
     "history": [
       {
         "date": "04/30/2023",
         "seen": "2026-09-16"
+      },
+      {
+        "date": "04/30/2023",
+        "change": "003 - 09/11/2026",
+        "seen": "2026-10-13"
       }
     ]
   },
@@ -408,8 +454,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN17834_ATP 4-02x2 FINAL WEB.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-17",
     "history": [
       {
@@ -431,8 +478,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN31028-ATP_3-04.7-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-17",
     "history": [
       {
@@ -454,8 +502,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN47294-FM_3-52-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-17",
     "history": [
       {
@@ -477,13 +526,19 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN44799-FM_3-99-001-WEB-4.pdf"
       }
     ],
+    "change": "001 - 09/04/2025",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
-    "last_changed": "2026-09-17",
+    "last_checked": "2026-10-13",
+    "last_changed": "2026-10-13",
     "history": [
       {
         "date": "03/06/2015",
         "seen": "2026-09-17"
+      },
+      {
+        "date": "03/06/2015",
+        "change": "001 - 09/04/2025",
+        "seen": "2026-10-13"
       }
     ]
   },
@@ -500,8 +555,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN43343-FM_3-04-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-17",
     "history": [
       {
@@ -523,8 +579,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_c/ARN38632-TC_3-04.3-000-WEB-1.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-17",
     "history": [
       {
@@ -546,8 +603,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/tm4_48x09.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-17",
     "history": [
       {
@@ -569,8 +627,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/tm4_48x10.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-17",
     "history": [
       {
@@ -592,8 +651,9 @@
         "href": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/tm4_48x11.pdf"
       }
     ],
+    "change": "",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
+    "last_checked": "2026-10-13",
     "last_changed": "2026-09-17",
     "history": [
       {
@@ -619,13 +679,19 @@
         "href": "https://armypubs.army.mil/FAQ/FAQ1.aspx#DA_publications"
       }
     ],
+    "change": "001 - 09/01/2026",
     "first_seen": "2026-09-17",
-    "last_checked": "2026-10-12",
-    "last_changed": "2026-09-17",
+    "last_checked": "2026-10-13",
+    "last_changed": "2026-10-13",
     "history": [
       {
         "date": "08/30/2014",
         "seen": "2026-09-17"
+      },
+      {
+        "date": "08/30/2014",
+        "change": "001 - 09/01/2026",
+        "seen": "2026-10-13"
       }
     ]
   }
