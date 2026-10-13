@@ -2,25 +2,25 @@
 """
 Army Aviation Pubs Dashboard
 ===================
-
+ 
 Reads a list of Army Publishing Directorate (APD) publication detail pages,
 pulls the Pub/Form Number, Pub/Form Date, Pub/Form Title, and the
 Unit Of Issue(s) download link from each one, and writes a single
 dashboard.html you can open in your browser.
-
+ 
 It remembers the last date it saw for every pub (in pubs_state.json). The
 next time you run it, if a pub's date has changed, that row is flagged
 "UPDATED" and the new date plus the new download link are pulled in
 automatically.
-
+ 
 Run it once a day. See README.md for setup and scheduling.
-
+ 
 Usage:
     python3 army_pubs_dashboard.py            # check all pubs, write dashboard.html
     python3 army_pubs_dashboard.py --open     # also open the dashboard when done
     python3 army_pubs_dashboard.py --pubs other_list.txt
 """
-
+ 
 import argparse
 import datetime
 import json
@@ -30,25 +30,25 @@ import sys
 import time
 import webbrowser
 from urllib.parse import urljoin, urlparse, parse_qs
-
+ 
 try:
     import requests
     from bs4 import BeautifulSoup
 except ImportError:
     print("Missing a dependency. Run:  pip3 install requests beautifulsoup4")
     sys.exit(1)
-
-
+ 
+ 
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
-
+ 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_PUBS_FILE = os.path.join(SCRIPT_DIR, "pubs.txt")
 STATE_FILE = os.path.join(SCRIPT_DIR, "pubs_state.json")
 DEFAULT_OUT_FILE = os.path.join(SCRIPT_DIR, "dashboard.html")
 NOTIFY_URL_FILE = os.path.join(SCRIPT_DIR, "notify_url.txt")
-
+ 
 # JavaScript for the batch email signup. %s is replaced with the JSON-encoded
 # Google Apps Script web app URL. Its braces are literal (not run through
 # str.format), so no doubling is needed here.
@@ -108,8 +108,8 @@ NOTIFY_JS_TEMPLATE = """
 })();
 </script>
 """
-
-
+ 
+ 
 def read_notify_url():
     """
     The Google Apps Script web app URL. Read from the NOTIFY_URL environment
@@ -126,9 +126,9 @@ def read_notify_url():
                 if line and not line.startswith("#"):
                     return line
     return ""
-
+ 
 DETAIL_URL = "https://armypubs.army.mil/ProductMaps/PubForm/Details.aspx?PUB_ID={}"
-
+ 
 # Full set of headers a current Chrome sends, so the request looks like a real
 # browser rather than a bare script. Some bot filters block requests that are
 # missing these. The APD pages are server-rendered, so a plain request receives
@@ -153,10 +153,10 @@ HEADERS = {
     "Sec-Fetch-User": "?1",
     "Referer": "https://armypubs.army.mil/",
 }
-
+ 
 # Seconds to wait between requests, to stay polite to the server.
 REQUEST_DELAY = 1.5
-
+ 
 # Row labels on the APD detail page, normalized to lowercase. If APD ever
 # renames a label, adjust the value on the right to match the new wording.
 LABELS = {
@@ -167,21 +167,21 @@ LABELS = {
     "status": "pub/form status",
     "changes": "changes",
 }
-
-
+ 
+ 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-
+ 
 def norm(text):
     """Collapse whitespace and lowercase, for reliable label matching."""
     return re.sub(r"\s+", " ", (text or "").strip()).lower()
-
-
+ 
+ 
 def today_str():
     return datetime.date.today().isoformat()
-
-
+ 
+ 
 def extract_pub_id(line):
     """
     Turn one line of pubs.txt into a PUB_ID.
@@ -208,8 +208,8 @@ def extract_pub_id(line):
     if m:
         return m.group(1)
     return None
-
-
+ 
+ 
 def read_pubs(path):
     """Read pubs.txt into an ordered, de-duplicated list of PUB_IDs."""
     if not os.path.exists(path):
@@ -224,8 +224,8 @@ def read_pubs(path):
                 seen.add(pub_id)
                 ids.append(pub_id)
     return ids
-
-
+ 
+ 
 def load_state():
     if os.path.exists(STATE_FILE):
         try:
@@ -234,17 +234,17 @@ def load_state():
         except Exception:
             print("Warning: pubs_state.json was unreadable, starting fresh.")
     return {}
-
-
+ 
+ 
 def save_state(state):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2)
-
-
+ 
+ 
 # ---------------------------------------------------------------------------
 # Fetch and parse
 # ---------------------------------------------------------------------------
-
+ 
 def warm_up(session):
     """
     Visit the site root once so the session picks up any cookie a bot filter
@@ -256,8 +256,8 @@ def warm_up(session):
         time.sleep(1.0)
     except Exception:
         pass
-
-
+ 
+ 
 def fetch(pub_id, session):
     url = DETAIL_URL.format(pub_id)
     last_err = None
@@ -271,12 +271,12 @@ def fetch(pub_id, session):
             if attempt == 0:
                 time.sleep(3.0)
     raise last_err
-
-
+ 
+ 
 def parse_detail(html, page_url):
     """
     Pull the fields we care about out of an APD detail page.
-
+ 
     The page lays each field out as a two-column table row:
         <tr><td>Pub/Form Date</td><td>03/22/2018</td></tr>
     We walk every row, match the left cell against a known label, and read
@@ -284,14 +284,14 @@ def parse_detail(html, page_url):
     """
     soup = BeautifulSoup(html, "html.parser")
     rec = {"number": "", "date": "", "title": "", "status": "", "uoi": [], "change": ""}
-
+ 
     for tr in soup.find_all("tr"):
         cells = tr.find_all(["td", "th"])
         if len(cells) < 2:
             continue
         label = norm(cells[0].get_text())
         value_cell = cells[1]
-
+ 
         if label == LABELS["number"]:
             rec["number"] = value_cell.get_text(strip=True)
         elif label == LABELS["date"]:
@@ -319,7 +319,7 @@ def parse_detail(html, page_url):
                 if txt:
                     links.append({"text": txt, "href": ""})
             rec["uoi"] = links
-
+ 
     # Fallback for the number if the table row was missed: the page heading
     # reads "Record Details for AR 95-1".
     if not rec["number"]:
@@ -328,14 +328,14 @@ def parse_detail(html, page_url):
             m = re.search(r"Record Details for\s+(.+)", heading.strip(), re.IGNORECASE)
             if m:
                 rec["number"] = m.group(1).strip()
-
+ 
     return rec
-
-
+ 
+ 
 # ---------------------------------------------------------------------------
 # Main check routine
 # ---------------------------------------------------------------------------
-
+ 
 def check_all(pub_ids, state):
     """
     Check every pub, update state, and return a list of display rows in the
@@ -346,21 +346,21 @@ def check_all(pub_ids, state):
     warm_up(session)
     display = []
     today = today_str()
-
+ 
     for i, pub_id in enumerate(pub_ids):
         prev = state.get(pub_id)
         row = {"pub_id": pub_id, "url": DETAIL_URL.format(pub_id)}
-
+ 
         try:
             url, html = fetch(pub_id, session)
             rec = parse_detail(html, url)
-
+ 
             is_new = prev is None
             date_changed = (not is_new) and prev.get("date", "") != rec["date"] and rec["date"] != ""
             # A new Change counts as an update too, even if the Pub/Form Date did not move.
             change_changed = (not is_new) and prev.get("change", "") != rec["change"] and rec["change"] != ""
             updated = date_changed or change_changed
-
+ 
             entry = {
                 "pub_id": pub_id,
                 "url": url,
@@ -378,9 +378,9 @@ def check_all(pub_ids, state):
             }
             if is_new or updated:
                 entry["history"].append({"date": rec["date"], "change": rec["change"], "seen": today})
-
+ 
             state[pub_id] = entry
-
+ 
             row.update(entry)
             row["flag"] = "new" if is_new else ("updated" if updated else "ok")
             row["change_only"] = change_changed and not date_changed
@@ -390,7 +390,7 @@ def check_all(pub_ids, state):
                 (entry["date"] or "?").ljust(12),
                 (entry["change"] or "-").ljust(18),
                 row["flag"].upper()))
-
+ 
         except Exception as e:
             # Keep whatever we already knew, flag the row as a failed check.
             if prev:
@@ -405,26 +405,26 @@ def check_all(pub_ids, state):
             row.setdefault("change", "")
             row["last_checked"] = prev.get("last_checked", "never") if prev else "never"
             print("  [{}/{}] {}  CHECK FAILED: {}".format(i + 1, len(pub_ids), pub_id, e))
-
+ 
         display.append(row)
         if i < len(pub_ids) - 1:
             time.sleep(REQUEST_DELAY)
-
+ 
     return display
-
-
+ 
+ 
 # ---------------------------------------------------------------------------
 # HTML output
 # ---------------------------------------------------------------------------
-
+ 
 def esc(text):
     return (str(text)
             .replace("&", "&amp;")
             .replace("<", "&lt;")
             .replace(">", "&gt;")
             .replace('"', "&quot;"))
-
-
+ 
+ 
 def render_uoi(links):
     if not links:
         return '<span class="muted">n/a</span>'
@@ -436,8 +436,8 @@ def render_uoi(links):
         else:
             parts.append(esc(lk["text"]))
     return ", ".join(parts)
-
-
+ 
+ 
 def render_badge(flag):
     if flag == "updated":
         return '<span class="badge badge-updated">UPDATED</span>'
@@ -446,8 +446,8 @@ def render_badge(flag):
     if flag == "error":
         return '<span class="badge badge-error">CHECK FAILED</span>'
     return ""
-
-
+ 
+ 
 def pub_category(number, pub_id):
     """
     Derive the tab/category from a pub number: the leading letter-only tokens
@@ -466,8 +466,8 @@ def pub_category(number, pub_id):
     if not prefix:
         return tokens[0].upper() if tokens else "Other"
     return " ".join(prefix).upper()
-
-
+ 
+ 
 # Tab filtering. Included on every page (works with or without the signup UI).
 TABS_JS = """
 <script>
@@ -489,13 +489,13 @@ TABS_JS = """
 })();
 </script>
 """
-
-
+ 
+ 
 def build_html(display, generated_at, notify_url=""):
     updated = [r for r in display if r.get("flag") == "updated"]
     errors = [r for r in display if r.get("flag") == "error"]
     notify_on = bool(notify_url)
-
+ 
     banner = ""
     if updated:
         names = ", ".join(esc(r.get("number") or r["pub_id"]) for r in updated)
@@ -510,7 +510,7 @@ def build_html(display, generated_at, notify_url=""):
         banner += ('<div class="alert alert-error">'
                    'Could not reach {} publication(s) this run (showing last known data): {}'
                    '</div>').format(len(errors), names)
-
+ 
     rows = []
     cat_counts = {}
     for r in display:
@@ -565,14 +565,14 @@ def build_html(display, generated_at, notify_url=""):
                 checked=esc(r.get("last_checked") or ""),
                 notify=notify_cell,
             ))
-
+ 
     # Tabs: All first, then each category alphabetically, with counts.
     tab_buttons = ['<button class="tab active" data-cat="__all__">All ({})</button>'.format(len(display))]
     for cat in sorted(cat_counts):
         tab_buttons.append('<button class="tab" data-cat="{c}">{c} ({n})</button>'.format(
             c=esc(cat), n=cat_counts[cat]))
     tabs = '<div class="tabs">' + "".join(tab_buttons) + '</div>' if display else ""
-
+ 
     notify_js = NOTIFY_JS_TEMPLATE % json.dumps(notify_url) if notify_on else ""
     subscribe_bar = ""
     if notify_on:
@@ -588,7 +588,7 @@ def build_html(display, generated_at, notify_url=""):
             "<div id=\"sub-msg\" class=\"notify-msg\"></div>"
             "</div>"
         )
-
+ 
     return """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -646,6 +646,7 @@ def build_html(display, generated_at, notify_url=""):
   .change {{ white-space: nowrap; }}
   footer {{ max-width: 1150px; margin: 0 auto; padding: 8px 22px 30px;
             color: #777; font-size: 12px; }}
+  footer .credit {{ margin-top: 8px; font-weight: 600; color: #555; }}
   .notify-msg {{ font-size: 12px; margin-top: 6px; color: #2e7d32; }}
   .notify-msg.err {{ color: #c62828; }}
   .subscribe-bar {{ background: #fff; border: 1px solid var(--line); border-radius: 6px;
@@ -697,6 +698,7 @@ def build_html(display, generated_at, notify_url=""):
 <footer>
   Generated {generated}. Data pulled from armypubs.army.mil. The Number links back to
   each source page. Re-run the script to refresh; changed dates are flagged UPDATED.
+  <div class="credit">Created by 1LT Mendez, Stone in collaboration with CPT Patton, Jordan</div>
 </footer>
 {tabs_js}
 {notify_js}
@@ -714,38 +716,39 @@ def build_html(display, generated_at, notify_url=""):
         tabs_js=(TABS_JS if display else ""),
         notify_js=notify_js,
     )
-
-
+ 
+ 
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
-
+ 
 def main():
     ap = argparse.ArgumentParser(description="Army Aviation Pubs Dashboard")
     ap.add_argument("--pubs", default=DEFAULT_PUBS_FILE, help="path to the pubs list")
     ap.add_argument("--out", default=DEFAULT_OUT_FILE, help="path to the output html")
     ap.add_argument("--open", action="store_true", help="open the dashboard when done")
     args = ap.parse_args()
-
+ 
     pub_ids = read_pubs(args.pubs)
     if not pub_ids:
         print("No pubs found in {}. Add at least one URL or PUB_ID.".format(args.pubs))
         sys.exit(1)
-
+ 
     print("Checking {} publication(s)...".format(len(pub_ids)))
     state = load_state()
     display = check_all(pub_ids, state)
     save_state(state)
-
+ 
     generated_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     html = build_html(display, generated_at, notify_url=read_notify_url())
     with open(args.out, "w", encoding="utf-8") as f:
         f.write(html)
-
+ 
     print("\nDashboard written to {}".format(args.out))
     if args.open:
         webbrowser.open("file://" + os.path.abspath(args.out))
-
-
+ 
+ 
 if __name__ == "__main__":
     main()
+ 
